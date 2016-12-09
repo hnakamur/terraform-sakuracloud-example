@@ -13,7 +13,7 @@ resource "sakuracloud_server" "web01" {
     memory = "1"
     disks = ["${sakuracloud_disk.web01.id}"]
     tags = ["@virtio-net-pci","Terraform"]
-    base_interface = "${sakuracloud_internet.router01.id}"
+    base_interface = "${sakuracloud_internet.router01.switch_id}"
     base_nw_ipaddress = "${element("${sakuracloud_internet.router01.nw_ipaddresses}", 0)}"
     base_nw_gateway = "${sakuracloud_internet.router01.nw_gateway}"
     base_nw_mask_len = "28"
