@@ -56,7 +56,7 @@ resource "sakuracloud_disk" "disk01" {
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core01"
-    password = "${password}"
+    password = "$${password}"
     disable_pw_auth = false
     description = "by Terraform"
 }
@@ -67,7 +67,7 @@ resource "sakuracloud_disk" "disk02" {
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core02"
-    password = "${password}"
+    password = "$${password}"
     disable_pw_auth = false
     description = "by Terraform"
 }
@@ -78,7 +78,7 @@ resource "sakuracloud_disk" "disk03" {
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core03"
-    password = "${password}"
+    password = "$${password}"
     disable_pw_auth = false
     description = "by Terraform"
 }
