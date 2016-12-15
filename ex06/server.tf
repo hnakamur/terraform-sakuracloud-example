@@ -52,7 +52,7 @@ resource "sakuracloud_server" "server03" {
 
 resource "sakuracloud_disk" "disk01" {
     name = "disk01"
-    source_archive_id = "112801390647"
+    source_archive_id = "${data.sakuracloud_archive.coreos.id}"
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core01"
@@ -63,7 +63,7 @@ resource "sakuracloud_disk" "disk01" {
 
 resource "sakuracloud_disk" "disk02" {
     name = "disk02"
-    source_archive_id = "112801390647"
+    source_archive_id = "${data.sakuracloud_archive.coreos.id}"
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core02"
@@ -74,13 +74,21 @@ resource "sakuracloud_disk" "disk02" {
 
 resource "sakuracloud_disk" "disk03" {
     name = "disk03"
-    source_archive_id = "112801390647"
+    source_archive_id = "${data.sakuracloud_archive.coreos.id}"
     ssh_key_ids = ["${sakuracloud_ssh_key.terraform.id}"]
     size = "20"
     hostname = "core03"
     password = "$${password}"
     disable_pw_auth = false
     description = "by Terraform"
+}
+
+
+data "sakuracloud_archive" "coreos" {
+    filter = {
+        name   = "Tags"
+        values = ["current-stable", "arch-64bit", "distro-coreos"]
+    }
 }
 
 resource "sakuracloud_ssh_key" "terraform"{
