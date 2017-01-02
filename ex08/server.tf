@@ -9,7 +9,7 @@ resource "sakuracloud_internet" "router01" {
 resource "sakuracloud_server" "server01" {
     name = "server01"
     disks = ["${sakuracloud_disk.disk01.id}"]
-    cdrom_id = "112900007436"
+    cdrom_id = "${data.sakuracloud_cdrom.server01_config.id}"
     tags = ["@virtio-net-pci", "Terraform"]
     description = "by Terraform"
     core = "1"
@@ -23,11 +23,17 @@ resource "sakuracloud_disk" "disk01" {
     size = "40"
     description = "by Terraform"
 }
+data "sakuracloud_cdrom" "server01_config" {
+    filter = {
+        name   = "Name"
+        values = ["server01-config"]
+    }
+}
 
 resource "sakuracloud_server" "server02" {
     name = "server02"
     disks = ["${sakuracloud_disk.disk02.id}"]
-    cdrom_id = "112900007408"
+    cdrom_id = "${data.sakuracloud_cdrom.server02_config.id}"
     tags = ["@virtio-net-pci", "Terraform"]
     description = "by Terraform"
     core = "1"
@@ -41,11 +47,17 @@ resource "sakuracloud_disk" "disk02" {
     size = "40"
     description = "by Terraform"
 }
+data "sakuracloud_cdrom" "server02_config" {
+    filter = {
+        name   = "Name"
+        values = ["server02-config"]
+    }
+}
 
 resource "sakuracloud_server" "server03" {
     name = "server03"
     disks = ["${sakuracloud_disk.disk03.id}"]
-    cdrom_id = "112900007686"
+    cdrom_id = "${data.sakuracloud_cdrom.server03_config.id}"
     tags = ["@virtio-net-pci", "Terraform"]
     description = "by Terraform"
     core = "1"
@@ -58,6 +70,12 @@ resource "sakuracloud_disk" "disk03" {
     source_archive_id = "${data.sakuracloud_archive.containerlinux.id}"
     size = "40"
     description = "by Terraform"
+}
+data "sakuracloud_cdrom" "server03_config" {
+    filter = {
+        name   = "Name"
+        values = ["server03-config"]
+    }
 }
 
 data "sakuracloud_archive" "containerlinux" {
